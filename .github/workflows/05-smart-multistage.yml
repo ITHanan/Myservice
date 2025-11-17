@@ -6,7 +6,7 @@ on:
 jobs:
 
   build:
-    name: 🛠 Build & Publish project
+    name: 🛠 Build project
     runs-on: ubuntu-latest
 
     steps:
@@ -23,15 +23,6 @@ jobs:
 
       - name: 🏗 Build solution
         run: dotnet build --no-restore --configuration Release
-
-      - name: 📤 Publish project
-        run: dotnet publish MyService.Api/MyService.Api.csproj -c Release -o ./out
-
-      - name: 📦 Upload published files
-        uses: actions/upload-artifact@v4
-        with:
-          name: published-files
-          path: ./out
 
   test:
     name: 🧪 Run unit tests
@@ -58,19 +49,11 @@ jobs:
     environment: development
 
     steps:
-      - name: ⬇ Download published files
-        uses: actions/download-artifact@v4
-        with:
-          name: published-files
-
       - name: 📢 Print deployment info
         run: |
           echo "Deploying service: ${{ vars.SERVICE_NAME }}"
           echo "Environment: development"
           echo "DEV deploy completed (simulation)."
-          echo "Published files:"
-          ls -l ./out
-          echo "✅ Deployment completed successfully"
 
   deploy-prod:
     name: 🚀 Deploy to PRODUCTION
@@ -81,18 +64,11 @@ jobs:
       name: production
 
     steps:
-      - name: ⬇ Download published files
-        uses: actions/download-artifact@v4
-        with:
-          name: published-files
-
       - name: 📢 Print deployment info
         run: |
           echo "Deploying service: ${{ vars.SERVICE_NAME }}"
           echo "Using PROD secret: ${{ secrets.PROD_API_KEY }}"
           echo "Environment: production"
           echo "Prod deploy completed (simulation)."
-          echo "Published files:"
-          ls -l ./out
-          echo "✅ Deployment completed successfully"
+
 
