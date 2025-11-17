@@ -44,34 +44,34 @@ jobs:
 
 
   deploy-dev:
-    name: 🚀 Deploy to DEV
+    name: 🚀 Deploy to Development
     runs-on: ubuntu-latest
     needs: test
-    if: ${{ github.ref != 'refs/heads/main' }}  # أي فرع غير main
+    if: ${{ github.ref != 'refs/heads/main' }} # Any branch other then the main one 
 
-    environment: dev
+    environment: DEVELOPMENT
 
     steps:
       - name: 📢 Print deployment info
         run: |
           echo "Deploying service: ${{ vars.SERVICE_NAME }}"
-          echo "Environment: DEV"
+          echo "Environment: development"
           echo "DEV deploy completed (simulation)."
 
 
   deploy-prod:
-    name: 🚀 Deploy to PROD
+    name: 🚀 Deploy to PRODCTION
     runs-on: ubuntu-latest
     needs: test
-    if: ${{ github.ref == 'refs/heads/main' }}  # فقط main
+    if: ${{ github.ref == 'refs/heads/main' }}  # only main
 
     environment:
-      name: prod
+      name: production
 
     steps:
       - name: 📢 Print deployment info
         run: |
           echo "Deploying service: ${{ vars.SERVICE_NAME }}"
           echo "Using PROD secret: ${{ secrets.PROD_API_KEY }}"
-          echo "Environment: PROD"
+          echo "Environment: production"
           echo "Prod deploy completed (simulation)."
