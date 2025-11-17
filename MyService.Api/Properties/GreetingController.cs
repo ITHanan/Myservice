@@ -17,6 +17,9 @@ public class GreetingController : ControllerBase
     [HttpGet("{name?}")]
     public ActionResult<string> Get(string? name)
     {
+        if (string.IsNullOrWhiteSpace(name))
+            return BadRequest("Name cannot be null or empty");
+
         return _greeting.GetGreeting(name);
     }
 }
