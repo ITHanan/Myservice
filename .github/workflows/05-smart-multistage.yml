@@ -47,9 +47,7 @@ jobs:
     name: 🚀 Deploy to Development
     runs-on: ubuntu-latest
     needs: test
-    if: ${{ github.ref != 'refs/heads/main' }} # Any branch other then the main one 
-
-    environment: DEVELOPMENT
+    if: ${{ github.ref != 'refs/heads/master' }}   
 
     steps:
       - name: 📢 Print deployment info
@@ -60,11 +58,10 @@ jobs:
 
 
   deploy-prod:
-    name: 🚀 Deploy to PRODCTION
+    name: 🚀 Deploy to PRODUCTION
     runs-on: ubuntu-latest
     needs: test
-    if: ${{ github.ref == 'refs/heads/main' }}  # only main
-
+    if: ${{ github.ref == 'refs/heads/master' }}   
     environment:
       name: production
 
@@ -75,3 +72,4 @@ jobs:
           echo "Using PROD secret: ${{ secrets.PROD_API_KEY }}"
           echo "Environment: production"
           echo "Prod deploy completed (simulation)."
+
