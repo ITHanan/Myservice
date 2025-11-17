@@ -28,7 +28,7 @@ jobs:
         run: dotnet publish MyService.Api/MyService.Api.csproj -c Release -o ./out
 
       - name: 📦 Upload published files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: published-files
           path: ./out
@@ -59,7 +59,7 @@ jobs:
 
     steps:
       - name: ⬇ Download published files
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: published-files
 
